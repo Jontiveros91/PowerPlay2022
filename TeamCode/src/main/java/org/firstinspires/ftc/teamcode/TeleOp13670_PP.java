@@ -15,6 +15,7 @@ public class TeleOp13670_PP extends LinearOpMode {
     double          armOffset = 0;                // Servo mid position
     final double    ARM_SPEED  = 0.001 ;
     // sets rate to move servo
+    // Test
     //double flipOffset = 0.5;
     
     @Override
