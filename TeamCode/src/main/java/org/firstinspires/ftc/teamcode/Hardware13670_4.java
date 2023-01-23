@@ -34,6 +34,7 @@ import android.view.View;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -65,6 +66,7 @@ public class Hardware13670_4
     public CRServo claw = null;
 
 
+
     // constants relating to robot measurements, motor hardware, etc.
     static final double COUNTS_PER_MOTOR_REV = 312;    // Gobilda 5202 19.2:1 Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
@@ -74,7 +76,7 @@ public class Hardware13670_4
     /* local OpMode members. */
     HardwareMap hwMap =  null;
     Telemetry telemetry;
-    private ElapsedTime period = new ElapsedTime();
+    private final ElapsedTime period = new ElapsedTime();
 
     /** The relativeLayout field is used to aid in providing interesting visual feedback
      * in this sample application; you probably *don't* need this when you use a color sensor on your
@@ -99,10 +101,11 @@ public class Hardware13670_4
 
         claw = hwMap.get(CRServo.class,"claw");
 
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftBack.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setDirection(DcMotor.Direction.FORWARD);
+
+        leftFront.setDirection(DcMotor.Direction.FORWARD);
+        rightFront.setDirection(DcMotor.Direction.REVERSE);
+        leftBack.setDirection(DcMotor.Direction.FORWARD);
+        rightBack.setDirection(DcMotor.Direction.REVERSE);
 
         /*leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -164,17 +167,17 @@ public class Hardware13670_4
     }
 
     public void goRight(double howfast){
-        leftFront.setPower(howfast);
-        rightFront.setPower(-howfast);
-        leftBack.setPower(-howfast);
-        rightBack.setPower(howfast);
-    }
-
-    public void goLeft(double howfast){
         leftFront.setPower(-howfast);
         rightFront.setPower(howfast);
         leftBack.setPower(howfast);
         rightBack.setPower(-howfast);
+    }
+
+    public void goLeft(double howfast){
+        leftFront.setPower(howfast);
+        rightFront.setPower(-howfast);
+        leftBack.setPower(-howfast);
+        rightBack.setPower(howfast);
     }
 
     public void forwardInches(double speed, double inches, double timeoutS) {
